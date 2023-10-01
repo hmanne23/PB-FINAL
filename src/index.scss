@@ -409,7 +409,7 @@ nav ul li a:hover  {
 section.hero {
   height: 350px;
   background-color: #b4c6f0;
-  background-image: url('/public/bg.png');
+  background-image: url('../public/bg.png');
   background-size: 400px;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -419,7 +419,7 @@ section.hero {
 section.hero {
   height: 350px;
   background-color: #b4c6f0;
-  background-image: url('/public/bg.png');
+  background-image: url('../public/bg.png');
   background-size: 400px;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -521,7 +521,7 @@ div.menu ul li a:hover  {
 div.hero {
   height: 350px;
   background-color: #b4c6f0;
-  background-image: url('/public/bg.png');
+  background-image: url('../public/bg.png');
   background-size: 400px;
   background-repeat: no-repeat;
   background-position: center bottom;
@@ -596,12 +596,12 @@ fill: none;
 
 .chart-container {
   display: flex;
-  justify-content: space-between; /* Space charts evenly within the container */
+  justify-content: space-between; 
 }
 
 .chart {
-  flex: 1; /* Allow each chart to take an equal amount of space */
-  margin-right: 20px; /* Add some spacing between the charts */
+  flex: 1;
+  margin-right: 20px; 
 }
 
 
