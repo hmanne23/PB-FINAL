@@ -447,11 +447,12 @@ main {
   width: 100%;
 }
 
-footer {
-  height: 50px;
-  background-color: #b4c6f0;
-  padding: 40px;
-}
+// footer {
+//   height: 50px;
+//   background-color: #b4c6f0;
+//   padding: 40px;
+ 
+// }
 
 .skip {
   display: block;
@@ -549,6 +550,8 @@ div.hero h2 {
   width: 100%;
 }
 
+
+
 .page-area {
   max-width: 768px;
   display: inline-block;
@@ -558,6 +561,9 @@ div.hero h2 {
   height: 50px;
   background-color: #b4c6f0;
   padding: 40px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 
 section.center {
