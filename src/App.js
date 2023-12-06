@@ -99,7 +99,7 @@ const setLoggedIn = (flag) => {
   return (
     <AuthProvider>
       <Router>
-        <Menu />
+        <Menu  />
         <Hero />
         <div className="mainContainer">
           <Routes>
