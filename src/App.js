@@ -4,9 +4,7 @@ import Footer from "./Footer/Footer";
 import Hero from "./Hero/Hero";
 import HomePage from "./HomePage/HomePage";
 import Menu from "./Menu/Menu";
-import AboutPage from "./AboutPage/AboutPage";
 import LoginPage from "./LoginPage/LoginPage";
-import SignupPage from "./SignupPage/SignupPage";
 import { AuthProvider } from "./AuthContext";
 import Dashboard from "./Dashboard/Dashboard";
 import ConfigureBudgets from "./ConfigureBudgets/ConfigureBudgets";
@@ -98,18 +96,18 @@ const setLoggedIn = (flag) => {
 
   return (
     <AuthProvider>
-      <Router>
+      <Router data-testid="app">
         <Menu  />
         <Hero />
         <div className="mainContainer">
           <Routes>
-            <Route path="/about" element={<AboutPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<LoginPage callBack={setLoggedIn} />} />
             <Route path="/login" element={<LoginPage callBack={setLoggedIn} />} />
             <Route path="/configure-budgets" element={<ConfigureBudgets />} />
             <Route path="/add-expense" element={<ManageExpense />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/Signup" element={<SignupPage />} />
+            <Route path="/home" element={<HomePage/>} />
+            {/* <Route path="/Signup" element={<SignupPage />} /> */}
             <Route path="/Visual" element={<Visuals />} />
           </Routes>
         </div>
@@ -120,7 +118,7 @@ const setLoggedIn = (flag) => {
           />
         )}
 
-        <Footer />
+        {/* <Footer /> */}
       </Router>
     </AuthProvider>
   );

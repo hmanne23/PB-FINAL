@@ -1,19 +1,33 @@
 const express = require("express");
 const app = express();
+const path = require('path');  // Import 'path' module
 const cors = require("cors");
 const compression = require('compression');
 const jwt=require('jsonwebtoken')
-const exjwt=require('express-jwt')
+// const { expressjwt: exjwt } = require('express-jwt');
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const SignupSchema = require("./models/SignupModel");
 const BudgetSchema = require("./models/BudgetModel");
 const ExpenseSchema = require("./models/ExpenseModel");
-let url = "mongodb://127.0.0.1:27017/personal-budget";
+
+
+// Replace 'your-database-name' with your actual database name
+const url = 'mongodb://localhost:27017/personal-budget';
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', () => {
+  console.log('Connected to MongoDB');
+});
 
 const bcrypt = require("bcrypt");
+
 const port = 3002;
-const budget = require("./server.json");
+const budget = require("../src/pb.json");
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -23,10 +37,10 @@ app.use(compression());
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 const secretkey='This is my key'
 
-const jwtmw = exjwt({
-  secret: secretkey,
-  algorithms: ["HS256"],
-});
+// const jwtMW = exjwt({
+//   secret: secretkey,
+//   algorithms: ['HS256']
+// });
 
 async function encryptPassword(password) {
   const salt = await bcrypt.genSalt(10);
@@ -37,7 +51,13 @@ async function encryptPassword(password) {
 
 
 
-app.use("/", express.static("public"));
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Route for the login page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 app.get("/intro", (req, res) => {
   res.send("Hello world");
 });
@@ -65,7 +85,7 @@ app.get("/get-categories/:userId", async (req, res) => {
   }
 });
 
-app.get('/get-budgets/:userId', jwtmw, async (req, res) => {
+app.get('/get-budgets/:userId', async (req, res) => {
   const { userId } = req.params;
   const { month } = req.query; 
 
@@ -83,7 +103,7 @@ app.get('/get-budgets/:userId', jwtmw, async (req, res) => {
   }
 });
 
-app.get('/get-expenses/:userId', jwtmw, async (req, res) => {
+app.get('/get-expenses/:userId', async (req, res) => {
   const { userId } = req.params;
   const { month } = req.query;
 
@@ -109,7 +129,7 @@ const generateToken = (user) => {
   );
 };
 
-app.post("/login", async (req, res) => {
+app.post("/", async (req, res) => {
   const { username, password } = req.body;
 
   try {
@@ -142,8 +162,7 @@ app.post("/login", async (req, res) => {
 });
 
 
-
-app.post("/Signup", async (req, res) => {
+app.post("/signup", async (req, res) => {
   const { username, password } = req.body;
   const Password = await encryptPassword(password);
   try {
@@ -163,7 +182,7 @@ app.post("/Signup", async (req, res) => {
   }
 });
 
-app.post("/configure-budgets", jwtmw, async (req, res) => {
+app.post("/configure-budgets", async (req, res) => {
   const { userId, months, budgetList } = req.body;
  // console.log("======================",months)
   try {
@@ -181,7 +200,7 @@ app.post("/configure-budgets", jwtmw, async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-app.post("/add-expense",jwtmw, async (req, res) => {
+app.post("/add-expense", async (req, res) => {
   const {userId, month, category, expense } = req.body;
   // const userId = localStorage.getItem('userId');
   try {
@@ -195,7 +214,7 @@ app.post("/add-expense",jwtmw, async (req, res) => {
   }
 });
 
-app.get("/check-existing-budget/:userId/:month/:category", jwtmw, async (req, res) => {
+app.get("/check-existing-budget/:userId/:month/:category", async (req, res) => {
   const { userId, month, category } = req.params;
 
   try {

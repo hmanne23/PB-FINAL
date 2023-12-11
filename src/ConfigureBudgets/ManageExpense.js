@@ -89,56 +89,65 @@ function ManageExpense() {
   };
 
   return (
-    <main className="center" id="main" aria-label="main">
-    <div>
-      <h2>Manage Expenses</h2>
+    <main className="container">
+      <div className="my-4">
+        <h2 className="mb-4">Manage Expenses</h2>
 
-      <label htmlFor="month">Month:</label>
-      <select
-        id="month"
-        onChange={(e) => setSelectedMonth(e.target.value)}
-        value={selectedMonth}
-        style={{marginRight:'15px'}}
-      >
-        <option value="">Select Month</option>
-        {months.map((month) => (
-          <option key={month} value={month}>
-            {month}
-          </option>
-        ))}
-      </select>
+        <div className="mb-3">
+          <label htmlFor="month" className="me-2">Month:</label>
+          <select
+            id="month"
+            onChange={(e) => setSelectedMonth(e.target.value)}
+            value={selectedMonth}
+            className="form-select"
+          >
+            <option value="">Select Month</option>
+            {months.map((month) => (
+              <option key={month} value={month}>
+                {month}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <label htmlFor="category">Category:</label>
-      <select
-        id="category"
-        onChange={(e) => setSelectedCategory(e.target.value)}
-        value={selectedCategory}
-        style={{marginRight:'15px'}}
-      >
-        <option value="">Select Category</option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
+        <div className="mb-3">
+          <label htmlFor="category" className="me-2">Category:</label>
+          <select
+            id="category"
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            value={selectedCategory}
+            className="form-select"
+          >
+            <option value="">Select Category</option>
+            {categories.map((category) => (
+              <option key={category} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <label htmlFor="expenseAmount">Expense Amount:</label>
-      <input
-        type="number"
-        id="expenseAmount"
-        value={expense}
-        onChange={(e) => setExpenseAmount(e.target.value)}
-        style={{marginRight:'15px'}}
-      />
-         {expenseAdded && <p>Expense added successfully!</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+        <div className="mb-3">
+          <label htmlFor="expenseAmount" className="me-2">Expense Amount:</label>
+          <input
+            type="number"
+            id="expenseAmount"
+            value={expense}
+            onChange={(e) => setExpenseAmount(e.target.value)}
+            className="form-control"
+          />
+        </div>
 
-      <button onClick={handleAddExpense}  style={{marginRight:'15px'}}>Add Expense</button>
-      <button type="button" onClick={handleBack} >
-        Back
-      </button>
-    </div>
+        {expenseAdded && <p className="text-success">Expense added successfully!</p>}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+
+        <div className="mb-3">
+          <button onClick={handleAddExpense} className="btn btn-dark me-2">Add Expense</button>
+          <button type="button" onClick={handleBack} className="btn btn-secondary">
+            Back
+          </button>
+        </div>
+      </div>
     </main>
   );
 }

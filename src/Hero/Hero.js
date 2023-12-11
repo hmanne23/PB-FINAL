@@ -1,15 +1,11 @@
+import React from 'react';
 
 function Hero() {
-    return (
-   
-          <div className="hero" >
-            <h1>Personal Budget</h1>
-            <h2>A personal-budget management app</h2>
-        </div>
-     
-        
-  
-    );
-  }
-  
-  export default Hero;
+  return (
+    <div className="hero d-flex align-items-center justify-content-center"> {/* Added centering classes */}
+      <h1>Personal Budget - A personal-budget management app</h1>
+    </div>
+  );
+}
+
+export default Hero;
